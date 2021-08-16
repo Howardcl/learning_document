@@ -1,4 +1,4 @@
-### **`gcc、make、makefile、cmake、cmakelists区别`**
+<font color=red size=6>**`gcc、make、makefile、cmake、cmakelists区别`**</font>
 
 1.gcc是GNU Compiler Collection（就是GNU编译器套件），也可以简单认为是编译器，它可以编译很多种编程语言（括C、C++、Objective-C、Fortran、Java等等）。
 
@@ -47,8 +47,10 @@ Accepted
 time limit error 超时
 
 memory limit error 超内存
-
+    
 Segmentation Fault 数组溢出
+    
+Float Point Exception 浮点数异常
 ```
 
 所有能用cout cin 的地方，都能用scanf printf
@@ -108,7 +110,7 @@ int main()
 
 ![image-20210712190545511](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210712190545511.png)
 
-### 解法：C++代码
+<font color=red size=6>解法：C++代码</font>
 
 ```c++
 #include<iostream>
@@ -317,7 +319,7 @@ push_heap ：假设 first 到 last-1 是一个有效的堆，要被加入堆的�
 sort_heap ：对范围内的序列重新排序，它假设该序列是个有序的堆。重载版本使用自定义的比较操作。
 ```
 
-## **蛇形矩阵-题目描述**
+<font size =6>**蛇形矩阵-题目描述**</font>
 
 输入两个整数n和m，输出一个n行m列的矩阵，将数字 1 到 n*m 按照回字蛇形填充至矩阵中。
 
@@ -383,16 +385,17 @@ int main()
 
 # 4.字符串
 
-**题目描述**
+<font size=5>**求字符串长度-题目描述**</font>
 给定一行长度不超过100的字符串，请你求出它的具体长度。
 
-**输入格式**
+<font size=5>输入格式</font>
 输入一行，表示一个字符串。注意字符串中可能包含空格。
 
-**输出格式**
+<font size=5>**输出格式**</font>
 输出一个整数，表示它的长度。
 
-**样例**
+<font size=5>**样例**</font>
+
 输入样例：
 
 ``` I love Beijing.```
@@ -445,39 +448,92 @@ using namespace std;
 int main()
 {
     char a[105];
-    cin.get(a,105);//需要注意cin.get()不会把换行符取出删除，影响下一次读入！
+    cin.get(a,105);//需要注意cin.get()不会把换行符取出删除，会读入换行符，会使字符数组长度增加1，影响下一次读入！
     cout<<strlen(a)<<endl;
     return 0;
 }
 ```
 
-**算法4**
-C++ 代码
+<font size=5>==cin 和 scanf读入字符串时遇到空格就停止了。==</font>
 
-```c++
-#include <iostream>
-#include <cstring>
-
-using namespace std;
-
-int main()
-{
-    char a[105];
-    cin.getline(a,105);//需要注意cin.getline()会把换行符取出删除，不影响下一次读入！
-    cout<<strlen(a)<<endl;
-    return 0;
-}
-```
-
-==cin 和 scanf读入字符串时遇到空格就停止了。==
-
-==但getline可以完美处理一行字符（不管是否有空格）的输入==
+<font size=5>==但getline可以完美处理一行字符（不管是否有空格）的输入==</font>
 
 ```c++
 string s;
 getline(cin,s);
 cout << s << endl;
 ```
+
+<font size=8>[gets(), getline(), cin.getline()](https://www.cnblogs.com/hi3254014978/p/12247076.html)</font>
+
+gets(str), getline(cin, s), cin.getline(str, len),这三个函数都是读入一行字符串的函数，下面是这三个函数的区别
+
+**1. gets()** 函数是 C 语言的函数，它接受的参数是字符数组， gets输入字符串时，不进行数组下标的检查，也就是说当你的数组长度是n时，输入超过该长度的字符串的时候，编译不会出错，但是运行的时候会出现数组越界或者内存泄漏的错误，所以现在有部分编译器已经不支持这个函数了，比如 PTA 就已经不支持这个函数了。***gets()\*函数**的用法如下：
+
+```c++
+char str[20];
+gets(str);
+```
+
+ 
+
+2. ***getline()*** 函数是 C++ 函数，他接受的参数是 一个输入流和一个string类型的字符串，要使用这个函数必须加上 ***#include <string>\*** 这个头文件和 ***using name space std;\*** 这个命名空间。getline()函数的用法如下：
+
+```c++
+#include <string>
+using namespace std;
+
+string s;
+getline(cin, s);
+```
+
+ 
+
+3. ***cin.getline()***函数也是 C++ 函数，它接受的参数是一个 C风格字符串（也就是一个字符数组），和一个最大长度，要使用这个函数，必须加上***#include <iostream>*** 这个头文件 和***using namespace std;***这个命名空间。cin.getline()函数的用法如下：
+
+```c++
+#include <iostream>
+using namespace std;
+
+char str[20];
+cin.getline(str, 20);
+```
+
+**注意：**（1）cin.getline()实际上有三个参数，cin.getline(接收字符串的变量,接收字符个数,结束字符)
+　　　（2）当第三个参数省略时，系统默认为'\n'
+
+==cin>>遇“空格”、“TAB”、“回车”就结束==
+
+``` c++
+用法1：输入一个数字或字符
+#include <iostream>
+using namespace std;
+int main ()
+{
+    int a,b;
+    cin>>a>>b;
+    cout<<a+b<<endl;
+}
+用法2：接收一个字符串，遇“空格”、“TAB”、“回车”就结束
+#include <iostream>
+using namespace std;
+int main ()
+{
+    char a[20];
+    cin>>a;
+    cout<<a<<endl;
+}
+
+例如：
+
+输入：jkljkljkl
+输出：jkljkljkl
+
+输入：jkljkl jkljkl //遇空格结束
+输出：jkljkl
+```
+
+
 
 **不可以用scanf读入string**
 
@@ -497,3 +553,401 @@ printf("%s\n",s.c_str())//将字符串转换为字符数组输出
 **注意：fgets和gets的区别：**
 
 fgets会把回车符的长度也读入进来，不会过滤掉回车，而gets会过滤掉回车（c++17后已经把gets删掉了）
+
+**基于范围的for语句：**
+
+![image-20210813153137078](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210813153137078.png)
+
+使用取地址符&，在改变c的同时，也改变s。
+
+<font size=6>==**stringstream的作用**==</font>
+
+**<font size=5>单词替换-题目描述：</font>**
+
+输入一个字符串，以回车结束（字符串长度不超过 100100）。
+
+该字符串由若干个单词组成，单词之间用一个空格隔开，所有单词区分大小写。
+
+现需要将其中的某个单词替换成另一个单词，并输出替换之后的字符串。
+
+<font size=5>**输入格式**</font>
+
+输入共 33 行。
+
+第 11 行是包含多个单词的字符串 ss;
+
+第 22 行是待替换的单词 aa(长度不超过 100100);
+
+第 33 行是 aa 将被替换的单词 bb(长度不超过 100100)。
+
+<font size=5>**输出格式**</font>
+
+共一行，输出将 ss 中所有单词 aa 替换成 bb 之后的字符串。
+
+**输入样例**：
+
+```
+You want someone to help you
+You
+I
+```
+
+**输出样例：**
+
+```
+I want someone to help you
+```
+
+``` c++
+#include<iostream>
+#include<string>
+#include<sstream>
+using namespace std;
+
+int main()
+{
+    string s,a,b;
+    getline(cin,s);
+    cin >> a >> b;
+    // 怎么把s当中的a都找出来？
+    stringstream ssin(s);//把字符串初始化为字符串流
+    /**
+    stringstream的用处：可以从字符串中提取出来我们需要的各种信息
+    int a,b;
+    string str;
+    double c;
+    ssin >> a >> b >> str >> c;
+    cout << a << endl << str << endl << b << endl << c << endl;
+    能够提取出来不同类型的字符
+    eg：
+    输入： 123 yxc 321 1.123
+    输出：
+    123
+    yxc
+    321
+    1.123
+    */
+    string str;
+    while(ssin >> str)
+    {
+        if(str == a) cout << b << ' ';
+        else cout << str << ' ';
+    }
+    return 0;
+}
+```
+
+# 5.函数
+
+<font size=6>==**在工程上，一般不写using namespace std**==</font>
+
+而是写std::，因为工程上有很多的命名空间，不同命名空间中的变量名可能会重复。
+
+**函数的声明与定义，在写大工程时是有用的，将声明与定义分开，在需要看函数具体实现时才去看函数定义**
+
+<font size=6>==**静态变量**==</font>
+
+静态变量的初始化只会在第一次调用的时候初始化，第二次调用的时候不会再初始化
+
+等于在函数内部开了一个只有该函数能用的全局变量
+
+静态变量会开辟在堆空间中
+
+```c++
+int output(void)
+{
+    static int cnt = 0;
+    cnt++;
+    cout << "call: " << cnt << "times" << endl;
+}
+int main()
+{
+    output();
+    output();
+    output();
+    output();
+    output();
+    return 0;
+}
+输出：
+call: 1times
+call: 2times
+call: 3times
+call: 4times
+call: 5times
+```
+
+**判断函数是否一样：根据函数名和形参类型**
+
+<font size=6>==**函数--数组形参**==</font>
+
+**一维数组形参的写法：**
+
+``` c++
+// 尽管形式不同，但这三个print函数是等价的
+void print(int * a) {/* … */}
+void print(int a[]) {/* … */}
+void print(int a[10]) {/* … */}
+```
+
+**多维数组形参的写法：**
+
+``` c++
+// 多维数组中，除了第一维之外，其余维度的大小必须指定
+void print(int (*a)[10]) {/* … */}
+void print(int a[][10]) {/* … */}
+```
+
+**函数形参的默认值，只能出现在后面的几个形参，不能前面的形参有默认值，后面的形参没有默认值。**
+
+**==内联函数：在返回值类型前加inline关键字==**
+
+作用：编译器不把函数识别为函数了，在所有调用函数的地方，用函数体替换。
+
+递归：不支持内联函数
+
+**![image-20210815101313111](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210815101313111.png)**
+
+<font size=6>==**递归**==</font>
+
+在一个函数内部，也可以调用函数本身。
+
+![image-20210815104936168](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210815104936168.png)
+
+**<font size=5>数组翻转-题目描述</font>**
+
+给定一个长度为 n的数组 a 和一个整数 size，请你编写一个函数，`void reverse(int a[], int size)`，实现将数组 a 中的前 sizesize 个数翻转。
+
+输出翻转后的数组 a。
+
+<font size=5>**输入格式**</font>
+
+第一行包含两个整数 nn 和 sizesize。
+
+第二行包含 nn 个整数，表示数组 aa。
+
+<font size=5>**输出格式**</font>
+
+共一行，包含 nn 个整数，表示翻转后的数组 aa。
+
+<font size=5>**数据范围**</font>
+
+1≤size≤n≤10001≤size≤n≤1000
+
+**<font size=5>输入样例：</font>**
+
+```
+5 3
+1 2 3 4 5
+```
+
+<font size=5>**输出样例**</font>
+
+```
+3 2 1 4 5
+```
+
+``` c++
+#include<iostream>
+
+using namespace std;
+/**翻转思路：双指针，一个指向0，一个指向最后size
+ * 然后将两个指针指向的值交换，然后一个指针后移，一个指针前移
+ * 直到相等的时候停下来
+ */
+void reverse(int a[],int size)
+{
+    for(int i = 0,j = size - 1;i < j;i++,j--)
+    {
+        swap(a[i],a[j]);
+    }
+}
+int main()
+{
+    int n,size;
+    cin >> n >> size;
+    int a[1000];
+    for(int i = 0;i < n;i++) cin >> a[i];
+    reverse(a,size);
+    for(int i = 0;i < n;i++) cout << a[i] << ' ';
+    return 0;
+}
+```
+
+```c++
+#include<iostream>
+
+using namespace std;
+/**怎样对数组进行从小到大排序？
+ * 选择排序：复杂度n*n
+ * 第一重循环：修改当前数
+ * 第二重循环：让当前数与后面的数比较
+ */
+void sort(int a[],int l,int r)
+{
+    for(int i = l;i <= r;i++)
+    {
+        for(int j = i + 1;j <= r;j++)
+            if(a[j] < a[i]) swap(a[i],a[j]);
+    }
+}
+
+int main()
+{
+    int n,l,r;
+    int a[1000];
+    cin >> n >> l >> r;
+    for(int i = 0;i < n;i++) cin >> a[i];
+    sort(a,l,r);
+    for(int i = 0;i < n;i++) cout << a[i] << ' ';
+    return 0;
+}
+```
+
+**<font size=5>跳台阶-题目描述</font>**
+
+一个楼梯共有 n级台阶，每次可以走一级或者两级，问从第 0级台阶走到第 n级台阶一共有多少种方案。
+
+<font size=5>**输入格式**</font>
+
+共一行，包含一个整数 n。
+
+<font size=5>**输出格式**</font>
+
+共一行，包含一个整数，表示方案数。
+
+<font size=5>**数据范围**</font>
+
+1≤n≤15
+
+**<font size=5>输入样例：</font>**
+
+```
+5
+```
+
+输出样例：
+
+```
+8
+```
+
+![image-20210816110650402](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210816110650402.png)
+
+``` c++
+#include<iostream>
+
+using namespace std;
+/**思路：递归--->枚举所有方案：可以通过画递归搜索树的方式来理清思路
+ * 
+ */
+int n;//台阶数，全局变量
+int ans = 0;//方案，全局变量
+void f(int k)
+{
+    if(k == n)  ans++;
+    else if(k < n) 
+    {
+        f(k+1);
+        f(k+2);
+    }
+    else return;
+}
+int main()
+{
+    cin >> n;
+    f(0);//从0开始走
+    cout << ans;
+    return 0;
+}
+```
+
+
+
+==**<font size=5>排列-题目描述</font>**==
+
+给定一个整数 n，将数字 1∼n排成一排，将会有很多种排列方法。
+
+现在，请你按照字典序将所有的排列方法输出。
+
+<font size=5>**输入格式**</font>
+
+共一行，包含一个整数 n。
+
+<font size=5>**输出格式**</font>
+
+按字典序输出所有排列方案，每个方案占一行。
+
+<font size=5>**数据范围**</font>
+
+1≤n≤9
+
+**<font size=5>输入样例：</font>**
+
+```
+3
+```
+
+输出样例：
+
+```
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+```
+
+
+
+![image-20210816153507532](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210816153507532.png)
+
+
+
+``` c++
+#include<iostream>
+
+using namespace std;
+/**字典序：比较两个序列的一种方式，从头开始比较，有不同的字符，
+ * 比较小的字符所在的字符串就比较小
+ * 
+ */
+ 
+const int N = 10;
+int n;
+//int u形参的作用是控制枚举到了哪里
+//nums的作用是存储排列的数组
+//state的作用是判断数字之前用过没有
+void dfs(int u,int nums[],bool state[])
+{
+    if(u > n)//代表枚举完了，直接输出排列后的数组即可
+    {
+        for(int i = 1;i <= n;i++) cout << nums[i] << ' ';
+        cout << endl;
+    }
+    else
+    {
+        for(int i = 1;i <= n;i++)
+        {
+            if(!state[i]) //代表这个数字没用过
+            {
+                state[i] = true;
+                nums[u] = i;
+                dfs(u + 1,nums,state);
+                state[i] = false;//一次排列完毕后，恢复现场
+            }
+        }
+    }
+}
+int main()
+{
+    cin >> n;
+    int nums[N];//存每个位置放的数
+    bool state[N] = {0};//判断每个数有没有被用过
+    
+    dfs(1,nums,state);//从第一个位置开始枚举
+    return 0;
+}
+```
+
