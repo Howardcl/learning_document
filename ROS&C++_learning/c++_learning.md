@@ -951,3 +951,62 @@ int main()
 }
 ```
 
+# **6.类、结构体、指针、引用**
+
+类可以将变量、数组和函数完美地打包在一起。  	——闫学灿
+
+**==类中的变量和函数被统一称为类的成员变量。==**
+
+private后面的内容是私有成员变量，在类的外部不能访问；public后面的内容是公有成员变量，在类的外部可以访问。
+
+![image-20210816172704525](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210816172704525.png)
+
+**结构体和类的作用是一样的。不同点在于如果变量前不写修饰符的话，类默认是private，结构体默认是public。**
+
+![image-20210816173139155](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210816173139155.png)
+
+**类的构造函数：没有返回值，函数名与类名一致**
+
+一旦自定义了构造函数，空构造函数就不会默认给出。
+
+==**<font size=5>进程：process</font>**==
+
+每一个程序都是一个进程，例如，每次在ACwing调试代码，都是在服务端开了一个进程。
+
+不同的进程之间是完全独立的。
+
+==**<font size=5>内存</font>**==
+
+堆栈空间：堆在下，栈在上。栈空间从上往下开辟，堆空间从下往上开辟。
+
+所有的函数调用都是在栈空间里面操作的，局部变量是在栈空间中定义的，不会默认为0，是随机值。
+
+静态变量和数组是定义在堆空间里面的，不赋值的话会默认为0.
+
+![image-20210817091749564](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817091749564.png)
+
+指针指向存放变量的值的地址。因此我们可以通过指针来修改变量的值。
+
+==指针可以看做是存放内存里面的数组下标。通过指针来修改变量的值，类似与通过数组下标来修改数组元素，是一样的道理。==
+
+![image-20210817095158132](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817095158132.png)
+
+==**指针变量本身也有自己的地址，就是多重指针，用来存放指针变量的地址。c++中一般用不到多重指针**==
+
+![image-20210817095438895](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817095438895.png)
+
+**数组名是一种特殊的指针。指针可以做运算：**
+
+**不允许两个不同类型的指针运算。**
+
+![image-20210817103350605](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817103350605.png)
+
+==**<font size=5>引用</font>**==
+
+**引用和指针类似，相当于给变量起了个别名。改变a的引用p，a也会变，相当于在a的地址上，同时存了p。**
+
+![image-20210817103606522](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817103606522.png)
+
+![image-20210817103817104](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817103817104.png)
+
+==**<font size=5>链表</font>**==
