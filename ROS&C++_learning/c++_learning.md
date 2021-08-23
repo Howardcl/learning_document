@@ -961,7 +961,7 @@ private后面的内容是私有成员变量，在类的外部不能访问；publ
 
 ![image-20210816172704525](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210816172704525.png)
 
-**结构体和类的作用是一样的。不同点在于如果变量前不写修饰符的话，类默认是private，结构体默认是public。**
+==**结构体和类的作用是一样的。不同点在于如果变量前不写修饰符的话，类默认是private，结构体默认是public。**==
 
 ![image-20210816173139155](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210816173139155.png)
 
@@ -1010,3 +1010,176 @@ private后面的内容是私有成员变量，在类的外部不能访问；publ
 ![image-20210817103817104](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/image-20210817103817104.png)
 
 ==**<font size=5>链表</font>**==
+
+``` c++
+#include<iostream>
+
+using namespace std;
+
+struct Node//链表
+{
+	int val;
+	Node* next;
+    
+    Node(int _val) : val(_val),next(NULL){}//构造函数
+};
+
+int main()
+{
+    Node* p = new Node(1);//new的话返回的是地址 不写new返回的是值
+    auto q = new Node(2);//可以用auto，会根据返回值自动推断类型。
+    p->next = p;//链表的指针只向自己
+    Node* head = p;
+    
+    //添加节点
+    Node* u = new Node(3);
+    u->next = head;
+    head = u;
+    
+    //删除节点,链表的删除是指在遍历的时候，遍历不到，至于有没有真的被删掉无所谓
+    head->next = head->next->next;
+    
+    //遍历链表
+    for(Node* i = head;i != NULL;i = i->next)
+        cout << i->val << endl;
+    
+    return 0;
+}
+```
+
+头结点：大部分时候说的是第一个节点的地址，而不是它的值
+
+==预编译->编译->汇编->链接==
+
+编译的作用：将c++语言转换成机器语言
+
+编译c++的编译器：g++、clang(mac电脑上)
+
+编译器的版本g++ 5.2.1 4.9.  -std=c++17
+
+**一般增加链表元素，是在最前面增加。**
+
+
+
+==**<font size=5>题目：合并两个排序的链表</font>**==
+
+输入两个递增排序的链表，合并这两个链表并使新链表中的结点仍然是按照递增排序的。
+
+**<font size=5>样例</font>**
+
+```c++
+输入：1->3->5 , 2->4->5
+
+输出：1->2->3->4->5->5
+```
+
+==**<font size=5>算法</font>**==
+**(二路归并) O(n)**
+1.新建头部的保护结点dummy，设置cur指针指向dummy。
+
+2.若当前l1指针指向的结点的值val比l2指针指向的结点的值val小，则令cur的next指针指向l1，且l1后移；否则指向l2，且l2后移。
+
+3.然后cur指针按照上一步设置好的位置后移。
+
+4.循环以上步骤直到l1或l2为空。
+
+5.将剩余的l1或l2接到cur指针后边。
+**时间复杂度**
+两个链表各遍历一次，所以时间复杂度为O(n)
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* merge(ListNode* l1, ListNode* l2) {
+        ListNode *dummy = new ListNode(0);
+        ListNode *cur = dummy;
+        while (l1 != NULL && l2 != NULL) {
+            if (l1 -> val < l2 -> val) {
+                cur -> next = l1;
+                l1 = l1 -> next;
+            }
+            else {
+                cur -> next = l2;
+                l2 = l2 -> next;
+            }
+            cur = cur -> next;
+        }
+        cur -> next = (l1 != NULL ? l1 : l2);
+        return dummy -> next;
+    }
+};
+```
+
+# **7.STL、位运算、常用库函数**
+
+==STL 是提高 C++编写效率的一个利器。																															——闫学灿==
+
+``` c++
+#include <vector>
+```
+
+
+vector 是变⻓数组,支持随机访问,不支持在任意位置 O(1)插入。为了保证效率,元素的增删一般应该在末尾进行。
+
+**声明**
+
+``` c++
+#include <vector>
+vector<int> a;
+vector<int> b[233];
+struct rec{...};
+vector<rec> c;
+```
+
+**头文件**
+相当于一个⻓度动态变化的 int 数组
+相当于第一维⻓ 233,第二位⻓度动态变化的 int 数组
+自定义的结构体类型也可以保存在 vector 中
+
+**size/empty**
+size 函数返回 vector 的实际⻓度(包含的元素个数)
+
+empty 函数返回一个 bool类型,表明 vector 是否为空。二者的时间复杂度都是 O(1)。
+所有的 STL 容器都支持这两个方法,含义也相同,之后我们就不再重复给出。
+
+**clear**
+clear 函数把 vector 清空。
+
+**迭代器**
+迭代器就像 STL 容器的“指针”,可以用星号“*”操作符解除引用。
+一个保存 int 的 vector 的迭代器声明方法为:*
+
+``` c++
+vector<int>::iterator it;
+```
+
+
+vector 的迭代器是“随机访问迭代器”,可以把 vector 的迭代器与一个整数相加减,其行为和指针的移动类似。可以把 vector 的两个迭代器相减,其结果也和指针相减类似,得到两个迭代器对应下标之间的距离。
+
+**begin/end**
+begin 函数返回指向 vector 中第一个元素的迭代器。例如 a 是一个非空的 vector,则*a.begin()与 a[0]的作用相同。
+所有的容器都可以视作一个“前闭后开”的结构,end 函数返回 vector 的尾部,即第 n 个元素再往后的“边界”。*a.end()与 a[n]都是越界访问,其中 n=a.size()。
+下面两份代码都遍历了 vector<int>a,并输出它的所有元素。
+
+``` c++
+for (int I = 0; I < a.size(); I ++) 
+cout << a[i] << endl;
+
+for (vector<int>::iterator it = a.begin(); it != a.end(); it ++)
+cout << *it << endl;
+```
+
+**front/back**
+front 函数返回 vector 的第一个元素,等价于*
+
+**a.begin() 和 a[0]。**
+back 函数返回 vector 的最后一个元素,等价于*==a.end() 和 a[a.size() – 1]。
+
