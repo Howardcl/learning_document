@@ -1116,7 +1116,95 @@ public:
         return dummy -> next;
     }
 };
+
 ```
+
+
+
+==**<font size=5>题目：反转链表</font>**==
+
+定义一个函数，输入一个链表的头结点，反转该链表并输出反转后链表的头结点。
+
+**思考题：**
+
+- 请同时实现迭代版本和递归版本。
+
+**样例**
+
+```c++
+输入:1->2->3->4->5->NULL
+
+输出:5->4->3->2->1->NULL
+```
+
+==**算法1**==
+**(链表操作，迭代) O(n)**
+翻转即将所有节点的next指针指向前驱节点。
+由于是单链表，我们在迭代时不能直接找到前驱节点，所以我们需要一个额外的指针保存前驱节点。同时在改变当前节点的next指针前，不要忘记保存它的后继节点。
+
+空间复杂度分析：遍历时只有3个额外变量，所以额外的空间复杂度是 O(1)。
+时间复杂度分析：只遍历一次链表，时间复杂度是 O(n)。
+
+``` c++
+/**
+
+ * Definition for singly-linked list.
+ * struct ListNode {
+ * int val;
+ * ListNode *next;
+ * ListNode(int x) : val(x), next(NULL) {}
+ * };
+   */
+   class Solution {
+   public:
+   ListNode* reverseList(ListNode* head) {
+       ListNode *prev = nullptr;
+       ListNode *cur = head;
+       while (cur)
+       {
+           ListNode *next = cur->next;
+           cur->next = prev;
+           prev = cur, cur = next;
+       }
+       return prev;
+   }
+   };
+```
+
+
+
+==**算法2**==
+**(链表操作，递归) O(n)**
+首先我们先考虑 reverseList 函数能做什么，它可以翻转一个链表，并返回新链表的头节点，也就是原链表的尾节点。
+所以我们可以先递归处理 reverseList(head->next)，这样我们可以将以head->next为头节点的链表翻转，并得到原链表的尾节点tail，此时head->next是新链表的尾节点，我们令它的next指针指向head，并将head->next指向空即可将整个链表翻转，且新链表的头节点是tail。
+
+空间复杂度分析：总共递归 nn 层，系统栈的空间复杂度是 O(n)，所以总共需要额外 O(n) 的空间。
+时间复杂度分析：链表中每个节点只被遍历一次，所以时间复杂度是 O(n)。
+
+``` c++
+/**
+
+ * Definition for singly-linked list.
+ * struct ListNode {
+ * int val;
+ * ListNode *next;
+ * ListNode(int x) : val(x), next(NULL) {}
+ * };
+   */
+   class Solution {
+   public:
+   ListNode* reverseList(ListNode* head) {
+       if (!head || !head->next) return head;
+       ListNode *tail = reverseList(head->next);
+       head->next->next = head;
+       head->next = nullptr;
+       return tail;
+   }
+  };
+
+```
+
+
 
 # **7.STL、位运算、常用库函数**
 
@@ -1166,7 +1254,7 @@ vector 的迭代器是“随机访问迭代器”,可以把 vector 的迭代器�
 
 **begin/end**
 begin 函数返回指向 vector 中第一个元素的迭代器。例如 a 是一个非空的 vector,则*a.begin()与 a[0]的作用相同。
-所有的容器都可以视作一个“前闭后开”的结构,end 函数返回 vector 的尾部,即第 n 个元素再往后的“边界”。*a.end()与 a[n]都是越界访问,其中 n=a.size()。
+所有的容器都可以视作一个“前闭后开”的结构,end 函数返回 vector 的尾部,即第 n 个元素再往后的“边界”。a.end()与 a[n]都是越界访问,其中 n=a.size()。
 下面两份代码都遍历了 vector<int>a,并输出它的所有元素。
 
 ``` c++
@@ -1178,8 +1266,6 @@ cout << *it << endl;
 ```
 
 **front/back**
-front 函数返回 vector 的第一个元素,等价于*
-
-**a.begin() 和 a[0]。**
-back 函数返回 vector 的最后一个元素,等价于*==a.end() 和 a[a.size() – 1]。
+front 函数返回 vector 的第一个元素,等价于**a.begin() 和 a[0]。**
+back 函数返回 vector 的最后一个元素,等价于**a.end() 和 a[a.size() – 1]**。
 
