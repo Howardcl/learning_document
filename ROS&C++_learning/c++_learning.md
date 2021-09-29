@@ -23,6 +23,32 @@ make工具可以看成是一个智能的批处理工具，它本身并没有编�
 
 11.当然如果你用IDE，类似VS这些一般它都能帮你弄好了，你只需要按一下那个三角形
 
+<font color=red size=6>**`C++命名标准：`**</font>
+
+只是有些使用习惯,比如在我们自己写的类中，为了避免和成员函数名称重复，我们通常在类的成员变量前加上下划线。
+
+```c++
+ class InitParamSetting
+{
+ public:
+ 
+ InitParamSetting();
+ ~InitParamSetting();
+ 
+ public:
+ 
+ void ReadRegInfo();
+ void WriteRegInfo();
+ 
+ CString _localRecPath;//本地录像存放路径
+ int _maxLocalRecTime;//最大录像时间（以分钟为单位）
+ CString _capPicPath;//抓图存放路径
+ CString _vedioWndLabel;//视频窗口标签
+ };
+```
+
+
+
 # 1.变量、输入输出、表达式和顺序语句
 
 1Byte=8Bit
@@ -1204,7 +1230,57 @@ public:
 
 ```
 
+## 6.1 类和对象的使用之对象指针
 
+对象指针的一般概念
+对象指针：指向类的成员的指针。在C++中，可以说明指向类的数据成员和成员函数的指针。
+对象指针遵循一般变量指针的各种规则：类名 *对象指针名；
+对象指针名*成员名；
+对象指针在使用之前，也一定要先进行初始化，让它指向一个已经声明过的对象，然后再使用。通过对象指针，可以访问到所指向对象的公有成员。
+
+指向对像的指针
+在建立对像时，编译系统会为每一个对像分配一定的存储空间，以存放其成员，对像空间的起始地址就是
+对像的指针。可以定义一个指针变量，用来存和对像的指针。如果有一个类：
+
+```c++
+class Time
+{
+   public:
+ 		int hour;
+        int minute;
+        int sec;
+        void get_time();
+};
+void Time::get_time()
+{
+   cout << hour << ":" << minute << ":" << sec << endl;
+}
+```
+
+在此有以下语句：
+
+``` c++
+Time *pt;//定义pt 为指向Time类对像的指针变量
+Time t1;//定义t1为Time类对像
+pt=&t1;//将t1的起始地址赋给pt
+```
+
+这样，pt 就是指向Time类对象的指针变量，它指向对象t1。
+定义指向类对象的指针变量的一般形式为：
+
+```c++
+类名 *对象指针名;
+```
+
+可以通过对象指针访问对象和对象的成员。如：
+
+```c++
+*pt       pt所指向的对像，即t1
+(*pt).hour      pt所指向的对象中的hour成员，即t1.hour
+pt->get_time()  pt把指向的对象中的get_time函数，即t1.get_time()
+(*pt).get_time()
+
+```
 
 # **7.STL、位运算、常用库函数**
 
