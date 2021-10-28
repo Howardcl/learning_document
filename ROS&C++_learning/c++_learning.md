@@ -748,7 +748,7 @@ void print(int a[][10]) {/* … */}
 
 <font size=5>**输入格式**</font>
 
-第一行包含两个整数 nn 和 sizesize。
+第一行包含两个整数 n 和 size。
 
 第二行包含 nn 个整数，表示数组 aa。
 
