@@ -8,6 +8,10 @@
 
 
 
+Lidar：激光雷达
+
+Radar：毫米波雷达
+
 # 2.AutowareAuto项目简介
 
 缺点：算法和实现功能远少于Apollo项目
@@ -48,4 +52,9 @@
 
 ![image-20230811143233624](https://raw.githubusercontent.com/Howardcl/MyImage/main/img/202308111432751.png)
 
-# 4.vehicle_interface界面
+# 4.Autoware的vehicle_interface界面调研
+
+
+
+
+
